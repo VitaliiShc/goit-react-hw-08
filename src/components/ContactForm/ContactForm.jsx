@@ -1,12 +1,11 @@
-import css from './ContactForm.module.css';
-
 import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useId } from 'react';
 import toast from 'react-hot-toast';
 
-import { addContact } from '../../redux/contactsOps';
+import { addContact } from '../../redux/contacts/operations';
+import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const nameFieldId = useId();
@@ -59,6 +58,7 @@ export const ContactForm = () => {
           <Field
             name="name"
             type="text"
+            placeholder="New contact name"
             id={nameFieldId}
             className={css.input}
           />
@@ -75,6 +75,7 @@ export const ContactForm = () => {
           <Field
             name="number"
             type="tel"
+            placeholder="New contact phone"
             id={numberFieldId}
             className={css.input}
           />

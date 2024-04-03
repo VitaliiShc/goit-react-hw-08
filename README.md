@@ -25,21 +25,19 @@ https://connections-api.herokuapp.com
 У Redux буде три слайси. Вже реалізовані вами contacts та filters, а також новий — auth, який буде відповідати за стан користувача. Під кожен слайс створіть окрему папку і файли під такі сутності як операції, селектори та логіку слайсу.
 У вас має вийти наступна структура:
 
-> redux
->
-> > auth
-> >
-> > > operations.js
-> > > selectors.js
-> > > selectors.js
-> > > contacts
-> > > operations.js
-> > > selectors.js
-> > > selectors.js
-> > > filters
-> > > selectors.js
-> > > slice.js
-> > > store.js
+- redux
+- - auth
+- - - operations.js
+- - - selectors.js
+- - - slice.js
+- - contacts
+- - - operations.js
+- - - selectors.js
+- - - selectors.js
+- - filters
+- - - selectors.js
+- - - slice.js
+- - store.js
 
 Перенесіть код з файлів contactsSlice.js, contactsOps.js, filtersSlice.js у нові відповідні файли.
 
