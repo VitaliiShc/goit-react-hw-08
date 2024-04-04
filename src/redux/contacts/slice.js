@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchContacts, addContact, deleteContact } from './operations';
-import {logOut} from '../auth/operations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  editContact,
+} from './operations';
+import { logOut } from '../auth/operations';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -19,6 +24,7 @@ const contactsSlice = createSlice({
     items: [],
     isLoading: false,
     error: false,
+    isEditing: false,
   },
   extraReducers: (builder) => {
     builder
@@ -51,12 +57,34 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.rejected, handleRejected)
 
+      // edit Contact
+      .addCase(editContact.pending, (state) => {
+        state.isLoading = true;
+        state.error = false;
+        state.isEditing = true;
+      })
+      .addCase(editContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = false;
+        state.isEditing = false;
+        state.items = state.items.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        );
+      })
+      .addCase(editContact.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.isEditing = false;
+      })
+
       // logout User
+      .addCase(logOut.pending, handlePending)
       .addCase(logOut.fulfilled, (state) => {
         state.items = [];
-        state.error = null;
+        state.error = false;
         state.isLoading = false;
-      });
+      })
+      .addCase(logOut.rejected, handleRejected);
   },
 });
 

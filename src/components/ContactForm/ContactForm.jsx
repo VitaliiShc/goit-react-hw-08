@@ -37,7 +37,7 @@ export const ContactForm = () => {
       })
       .catch(() => {
         toast.error(
-          `Failed to add contact ${values.name} not added, try again.`
+          `Failed to add contact ${values.name}, try again.`
         );
       });
     actions.resetForm();

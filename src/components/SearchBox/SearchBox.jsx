@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IoIosClose } from 'react-icons/io';
+import { BsX } from 'react-icons/bs';
 
 import css from './SearchBox.module.css';
 import { changeFilter } from '../../redux/filters/slice';
@@ -13,13 +13,13 @@ export const SearchBox = () => {
 
   return (
     <div className={css.searchbox}>
-      <label htmlFor={SearchBoxId}>Find contacts by name</label>
+      <label htmlFor={SearchBoxId}>Find contacts</label>
       <div className={css.inputWrap}>
         <input
           id={SearchBoxId}
           name="SearchBox"
           type="text"
-          placeholder="Enter contact name for search"
+          placeholder="Enter name or number"
           value={value}
           onChange={(evt) => dispatch(changeFilter(evt.target.value))}
           className={css.input}
@@ -29,7 +29,7 @@ export const SearchBox = () => {
           className={css.btn}
           onClick={() => dispatch(changeFilter(''))}
         >
-          <IoIosClose size="30" />
+          <BsX size="30" />
         </button>
       </div>
     </div>

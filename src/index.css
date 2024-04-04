@@ -70,3 +70,8 @@ ul {
   padding-left: 0;
   list-style-type: none;
 }
+
+.noScroll {
+  overflow: hidden;
+  margin-right: 17px;
+}
