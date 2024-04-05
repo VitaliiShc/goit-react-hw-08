@@ -66,14 +66,6 @@ export const Contact = ({ contact: { id, name, number } }) => {
               <BsTrash3Fill size="18" />
             </button>
           </div>
-          {showConfirmModal && (
-            <ConfirmModal
-              showConfirmModal={showConfirmModal}
-              hideConfirmModal={handleHideConfirmModal}
-              confirm={handleConfirm}
-              contact={{ id, name }}
-            />
-          )}
         </div>
       ) : (
         <ContactEditor
@@ -81,6 +73,12 @@ export const Contact = ({ contact: { id, name, number } }) => {
           onClose={() => setIsEditing(false)}
         />
       )}
+      <ConfirmModal
+        showConfirmModal={showConfirmModal}
+        hideConfirmModal={handleHideConfirmModal}
+        confirm={handleConfirm}
+        contact={{ id, name }}
+      />
     </>
   );
 };
