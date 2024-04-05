@@ -1,5 +1,6 @@
 import css from './ConfirmModal.module.css';
 import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 export const ConfirmModal = ({
   showConfirmModal,

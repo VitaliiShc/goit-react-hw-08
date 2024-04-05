@@ -9,7 +9,7 @@ const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-export const AppBar = () => {
+export const Navigation = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
@@ -26,4 +26,4 @@ export const AppBar = () => {
   );
 };
 
-export default AppBar;
+export default Navigation;

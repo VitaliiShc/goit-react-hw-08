@@ -4,10 +4,10 @@ import { useId } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
-import css from './RegisterForm.module.css';
+import css from './RegistrationForm.module.css';
 import { register } from '../../redux/auth/operations';
 
-export const RegisterForm = () => {
+export const RegistrationForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
@@ -32,7 +32,7 @@ export const RegisterForm = () => {
     password: '',
   };
 
-  const registerFormSchema = Yup.object().shape({
+  const registrationFormSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too short!')
       .max(30, 'Too long!')
@@ -48,7 +48,7 @@ export const RegisterForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={registerFormSchema}
+      validationSchema={registrationFormSchema}
     >
       <Form className={css.form} autoComplete="off">
         <div className={css.fieldwrap}>
@@ -100,4 +100,4 @@ export const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegistrationForm;

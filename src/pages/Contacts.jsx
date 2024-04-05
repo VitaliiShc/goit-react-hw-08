@@ -11,7 +11,7 @@ import Loader from '../components/Loader/Loader';
 import { fetchContacts } from '../redux/contacts/operations';
 import { selectError, selectLoading } from '../redux/contacts/selectors';
 
-export const ContactBook = () => {
+export const Contacts = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
@@ -39,4 +39,4 @@ export const ContactBook = () => {
   );
 };
 
-export default ContactBook;
+export default Contacts;

@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 
 import css from './Pages.module.css';
 import DocumentTitle from '../components/DocumentTitle/DocumentTitle';
-import RegisterForm from '../components/RegisterForm/RegisterForm';
+import RegistrationForm from '../components/RegistrationForm/RegistrationForm';
 
-export const Register = () => {
+export const Registration = () => {
   return (
     <>
       <DocumentTitle>Registration</DocumentTitle>
       <h1>Register your account</h1>
-      <RegisterForm />
+      <RegistrationForm />
       <p>
         Have an account?{' '}
         <Link to="/login" className={css.link}>
@@ -20,4 +20,4 @@ export const Register = () => {
   );
 };
 
-export default Register;
+export default Registration;

@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
-import css from './AuthMenu.module.css';
+import css from './AuthNav.module.css';
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-export const AuthMenu = () => {
+export const AuthNav = () => {
   return (
     <>
       <nav className={css.nav}>
@@ -22,4 +22,4 @@ export const AuthMenu = () => {
   );
 };
 
-export default AuthMenu;
+export default AuthNav;

@@ -9,7 +9,7 @@ import {
 import Loader from './../Loader/Loader';
 import Navigation from '../Navigation/Navigation';
 const UserMenu = lazy(() => import('../UserMenu/UserMenu'));
-const AuthMenu = lazy(() => import('../AuthMenu/AuthMenu'));
+const AuthNav = lazy(() => import('../AuthNav/AuthNav'));
 
 export const AppBar = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -20,7 +20,7 @@ export const AppBar = () => {
       <div className={css.headerContainer}>
         <Navigation />
         <Suspense fallback={<Loader />}>
-          {!isRefreshing && <>{isLoggedIn ? <UserMenu /> : <AuthMenu />}</>}
+          {!isRefreshing && <>{isLoggedIn ? <UserMenu /> : <AuthNav />}</>}
         </Suspense>
       </div>
     </header>
