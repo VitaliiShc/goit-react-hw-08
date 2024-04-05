@@ -4,8 +4,8 @@ import * as Yup from 'yup';
 import { useId } from 'react';
 import toast from 'react-hot-toast';
 
-import { addContact } from '../../redux/contacts/operations';
 import css from './ContactForm.module.css';
+import { addContact } from '../../redux/contacts/operations';
 
 export const ContactForm = () => {
   const nameFieldId = useId();
@@ -20,11 +20,11 @@ export const ContactForm = () => {
   const ContactFormSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too short!')
-      .max(50, 'Too long!')
+      .max(30, 'Too long!')
       .required('Required!'),
     number: Yup.string()
       .min(3, 'Too short!')
-      .max(50, 'Too long!')
+      .max(30, 'Too long!')
       .required('Required!')
       .matches(/^[0-9-]+$/, 'Numbers and dashes only'),
   });
@@ -36,9 +36,7 @@ export const ContactForm = () => {
         toast.success(`Contact ${values.name} has been added.`);
       })
       .catch(() => {
-        toast.error(
-          `Failed to add contact ${values.name}, try again.`
-        );
+        toast.error(`Failed to add contact ${values.name}, try again.`);
       });
     actions.resetForm();
   };
@@ -50,11 +48,14 @@ export const ContactForm = () => {
       validationSchema={ContactFormSchema}
     >
       <Form className={css.form}>
+        <h2 className={css.contactFormLabel}>Create a new contact</h2>
         <div className={css.fieldwrap}>
-          <label htmlFor={nameFieldId} className={css.label}>
-            Name{' '}
+          <div className={css.labelwrap}>
+            <label htmlFor={nameFieldId} className={css.label}>
+              Name
+            </label>
             <ErrorMessage name="name" component="span" className={css.error} />
-          </label>
+          </div>
           <Field
             name="name"
             type="text"
@@ -64,14 +65,16 @@ export const ContactForm = () => {
           />
         </div>
         <div className={css.fieldwrap}>
-          <label htmlFor={numberFieldId} className={css.label}>
-            Number{' '}
+          <div className={css.labelwrap}>
+            <label htmlFor={numberFieldId} className={css.label}>
+              Number
+            </label>
             <ErrorMessage
               name="number"
               component="span"
               className={css.error}
             />
-          </label>
+          </div>
           <Field
             name="number"
             type="tel"
@@ -80,9 +83,7 @@ export const ContactForm = () => {
             className={css.input}
           />
         </div>
-        <button className={css.btn} type="submit">
-          Add contact
-        </button>
+        <button type="submit">Add contact</button>
       </Form>
     </Formik>
   );

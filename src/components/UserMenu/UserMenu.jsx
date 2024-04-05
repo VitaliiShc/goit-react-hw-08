@@ -9,10 +9,9 @@ export const UserMenu = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className={css.wrapper}>
-      <p className={css.username}>Welcome, {user.name}</p>
-
-      <button type="button" onClick={() => dispatch(logOut())}>
+    <div className={css.wrap}>
+      <p className={css.username}>{user.name}</p>
+      <button type="button" onClick={() => dispatch(logOut())} className={css.btn}>
         LogOut
       </button>
     </div>

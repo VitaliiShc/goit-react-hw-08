@@ -35,12 +35,12 @@ export const RegisterForm = () => {
   const registerFormSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too short!')
-      .max(50, 'Too long!')
+      .max(30, 'Too long!')
       .required('Required!'),
     email: Yup.string().email('Invalid email format!').required('Required!'),
     password: Yup.string()
       .min(8, 'Too short! Min 8 characters!')
-      .max(256, 'Too long!')
+      .max(128, 'Too long!')
       .required('Required!'),
   });
 
@@ -94,9 +94,7 @@ export const RegisterForm = () => {
             className={css.input}
           />
         </div>
-        <button className={css.btn} type="submit">
-          Register
-        </button>
+        <button type="submit">Register</button>
       </Form>
     </Formik>
   );

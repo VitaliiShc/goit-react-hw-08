@@ -4,14 +4,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import { BsX, BsCheck } from 'react-icons/bs';
 
-import { editContact, fetchContacts } from '../../redux/contacts/operations';
 import css from './ContactEditor.module.css';
+import { editContact, fetchContacts } from '../../redux/contacts/operations';
 
 export const ContactEditor = ({ contact: { id, name, number }, onClose }) => {
   const [contactName, setContactName] = useState(name);
   const [contactNumber, setContactNumber] = useState(number);
-
   const dispatch = useDispatch();
 
   const initialValues = {
@@ -22,32 +22,36 @@ export const ContactEditor = ({ contact: { id, name, number }, onClose }) => {
   const ContactEditorSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too short!')
-      .max(50, 'Too long!')
+      .max(30, 'Too long!')
       .required('Required!'),
     number: Yup.string()
       .min(3, 'Too short!')
-      .max(50, 'Too long!')
+      .max(30, 'Too long!')
       .required('Required!')
       .matches(/^[0-9-]+$/, 'Numbers and dashes only'),
   });
 
   const handleSubmit = () => {
-    dispatch(
-      editContact({
-        id,
-        name: contactName,
-        number: contactNumber,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        onClose();
-        toast.success(`Contact ${contactName} edited.`);
-        dispatch(fetchContacts());
-      })
-      .catch(() => {
-        toast.error(`Failed to edit contact ${contactName}, try again.`);
-      });
+    if (name === contactName && number === contactNumber) {
+      onClose();
+    } else {
+      dispatch(
+        editContact({
+          id,
+          name: contactName,
+          number: contactNumber,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          onClose();
+          toast.success(`Contact ${contactName} edited.`);
+          dispatch(fetchContacts());
+        })
+        .catch(() => {
+          toast.error(`Failed to edit contact ${contactName}, try again.`);
+        });
+    }
   };
 
   return (
@@ -57,33 +61,47 @@ export const ContactEditor = ({ contact: { id, name, number }, onClose }) => {
       validationSchema={ContactEditorSchema}
       enableReinitialize={true}
     >
-      <Form className={css.form}>
-        <div className={css.fieldwrap}>
-          <BsFillPersonFill size="20" />
-          <Field
-            name="name"
-            type="text"
-            className={css.input}
-            onChange={(evt) => setContactName(evt.target.value)}
-          />
-          <ErrorMessage name="name" component="span" className={css.error} />
+      <Form>
+        <div className={css.formwrap}>
+          <div className={css.editorsWrap}>
+            <div className={css.infoFieldWrap}>
+              <BsFillPersonFill size="20" className={css.icon} />
+              <Field
+                name="name"
+                type="text"
+                className={css.input}
+                onChange={(evt) => setContactName(evt.target.value)}
+              />
+              <ErrorMessage
+                name="name"
+                component="span"
+                className={css.error}
+              />
+            </div>
+            <div className={css.infoFieldWrap}>
+              <BsFillTelephoneFill size="20" className={css.icon} />
+              <Field
+                name="number"
+                type="tel"
+                className={css.input}
+                onChange={(evt) => setContactNumber(evt.target.value)}
+              />
+              <ErrorMessage
+                name="number"
+                component="span"
+                className={css.error}
+              />
+            </div>
+          </div>
+          <div className={css.contactMngBts}>
+            <button className={css.btn} type="submit">
+              <BsCheck size="28" />
+            </button>
+            <button className={css.btn} type="button" onClick={() => onClose()}>
+              <BsX size="28" />
+            </button>
+          </div>
         </div>
-        <div className={css.fieldwrap}>
-          <BsFillTelephoneFill size="18" />
-          <Field
-            name="number"
-            type="tel"
-            className={css.input}
-            onChange={(evt) => setContactNumber(evt.target.value)}
-          />
-          <ErrorMessage name="number" component="span" className={css.error} />
-        </div>
-        <button className={css.save} type="submit">
-          Save
-        </button>
-        <button className={css.close} type="button" onClick={() => onClose()}>
-          Close
-        </button>
       </Form>
     </Formik>
   );

@@ -29,7 +29,7 @@ export const SearchBox = () => {
           className={css.btn}
           onClick={() => dispatch(changeFilter(''))}
         >
-          <BsX size="30" />
+          <BsX size="30" className={css.icon } />
         </button>
       </div>
     </div>

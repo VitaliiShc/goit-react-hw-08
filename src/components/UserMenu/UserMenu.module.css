@@ -1,9 +1,14 @@
-.wrapper {
+.wrap {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
 }
 
 .username {
-  font-weight: 700;
+font-size: 18px
+}
+
+.btn{
+  font-size: 16px;
+  padding: 5px 10px;
 }

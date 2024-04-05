@@ -1,24 +1,28 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useId } from 'react';
-import { logIn } from '../../redux/auth/operations';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import css from './LoginForm.module.css';
-import { selectUser } from '../../redux/auth/selectors';
+import { logIn } from '../../redux/auth/operations';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser); // ???
   const handleSubmit = (values, actions) => {
     dispatch(logIn(values))
       .unwrap()
-      .then(() => {
-        toast.success(`Hello ${user.name}.`); // ???
+      .then((data) => {
+        toast(
+          <p>
+            Hello <br />
+            <span className={css.hi}> {data.user.name}</span> !
+          </p>,
+          { className: `${css.toast}` }
+        );
       })
       .catch(() => {
-        toast.error(`Failed to login.`);
+        toast.error(`Failed to login!`);
       });
     actions.resetForm();
   };
@@ -35,7 +39,7 @@ export const LoginForm = () => {
     email: Yup.string().email('Invalid email format!').required('Required!'),
     password: Yup.string()
       .min(8, 'Too short!')
-      .max(256, 'Too long!')
+      .max(128, 'Too long!')
       .required('Required!'),
   });
 
@@ -76,9 +80,7 @@ export const LoginForm = () => {
             className={css.input}
           />
         </div>
-        <button className={css.btn} type="submit">
-          Log In
-        </button>
+        <button type="submit">Log In</button>
       </Form>
     </Formik>
   );

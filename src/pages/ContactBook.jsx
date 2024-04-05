@@ -1,9 +1,7 @@
-
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import css from './Pages.module.css';
+import css from './Pages.module.css';
 import DocumentTitle from '../components/DocumentTitle/DocumentTitle';
 import ContactForm from '../components/ContactForm/ContactForm';
 import SearchBox from '../components/SearchBox/SearchBox';
@@ -25,12 +23,18 @@ export const ContactBook = () => {
   return (
     <>
       <DocumentTitle>Contact Book</DocumentTitle>
-      <h1>Contact Book</h1>
-      <ContactForm />
-      <SearchBox />
-      {!isLoading && !error && <ContactList />}
-      {!isLoading && error && <ErrorMessage />}
-      {isLoading && !error && <Loader />}
+      <div className={css.contactsContainer}>
+        <div className={css.contactsTools}>
+          <h1 className={css.bookTitle}>Contact Book</h1>
+          <SearchBox />
+          <ContactForm />
+        </div>
+        <div>
+          {!isLoading && !error && <ContactList />}
+          {!isLoading && error && <ErrorMessage />}
+          {isLoading && !error && <Loader />}
+        </div>
+      </div>
     </>
   );
 };

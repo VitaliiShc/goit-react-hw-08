@@ -1,4 +1,9 @@
-import { BsFillPersonFill, BsFillTelephoneFill } from 'react-icons/bs';
+import {
+  BsFillPersonFill,
+  BsFillTelephoneFill,
+  BsFillPencilFill,
+  BsTrash3Fill,
+} from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
@@ -8,15 +13,11 @@ import { deleteContact } from '../../redux/contacts/operations';
 import ContactEditor from '../ContactEditor/ContactEditor';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
-// ===
-import Modal from 'react-modal';
-Modal.setAppElement('#root');
-// ===
-
 export const Contact = ({ contact: { id, name, number } }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
+
   const handleDelete = () => {
     dispatch(deleteContact(id))
       .unwrap()
@@ -33,7 +34,7 @@ export const Contact = ({ contact: { id, name, number } }) => {
     document.body.classList.add('noScroll');
   };
 
-  const handleCloseConfirmModal = () => {
+  const handleHideConfirmModal = () => {
     setShowConfirmModal(false);
     document.body.classList.remove('noScroll');
   };
@@ -41,41 +42,39 @@ export const Contact = ({ contact: { id, name, number } }) => {
   const handleConfirm = () => {
     handleDelete();
     document.body.classList.remove('noScroll');
-  }
+  };
 
   return (
     <>
       {!isEditing ? (
-        <>
+        <div className={css.card}>
           <div>
-            <p className={css.text}>
-              <BsFillPersonFill size="20" />
-              &nbsp;{name}
-            </p>
-            <p className={css.text}>
-              <BsFillTelephoneFill size="18" />
-              &nbsp;{number}
-            </p>
+            <div className={css.infoFieldWrap}>
+              <BsFillPersonFill size="20" className={css.icon} />
+              <p className={css.text}>{name}</p>
+            </div>
+            <div className={css.infoFieldWrap}>
+              <BsFillTelephoneFill size="20" className={css.icon} />
+              <p className={css.text}>{number}</p>
+            </div>
           </div>
-          <button className={css.btn} onClick={() => setIsEditing(true)}>
-            Edit
-          </button>
-          <button className={css.btn} onClick={handleShowConfirmModal}>
-            Delete
-          </button>
-          <ConfirmModal
-            isModalOpen={showConfirmModal}
-            hideModal={handleCloseConfirmModal}
-            confirm={handleConfirm}
-            contact={{ id, name }}
-          />
-
-          {/* <Modal isOpen={showConfirmModal}>
-            <p>Are you sure you want to delete the contact {name}?</p>
-            <button onClick={handleCloseModal}>Close Modal</button>
-            <button onClick={handleDelete}>Del Contact</button>
-          </Modal> */}
-        </>
+          <div className={css.contactMngBts}>
+            <button className={css.btn} onClick={() => setIsEditing(true)}>
+              <BsFillPencilFill size="18" />
+            </button>
+            <button className={css.btn} onClick={handleShowConfirmModal}>
+              <BsTrash3Fill size="18" />
+            </button>
+          </div>
+          {showConfirmModal && (
+            <ConfirmModal
+              showConfirmModal={showConfirmModal}
+              hideConfirmModal={handleHideConfirmModal}
+              confirm={handleConfirm}
+              contact={{ id, name }}
+            />
+          )}
+        </div>
       ) : (
         <ContactEditor
           contact={{ id, name, number }}

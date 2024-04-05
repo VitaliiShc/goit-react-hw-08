@@ -9,7 +9,7 @@ const buildLinkClass = ({ isActive }) => {
 
 export const AuthMenu = () => {
   return (
-    <header className={css.header}>
+    <>
       <nav className={css.nav}>
         <NavLink to="/register" className={buildLinkClass}>
           Register
@@ -18,7 +18,7 @@ export const AuthMenu = () => {
           Log In
         </NavLink>
       </nav>
-    </header>
+    </>
   );
 };
 
